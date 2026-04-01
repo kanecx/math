@@ -188,7 +188,6 @@
         }
 
         .control-btn {
-            grid-column: span 1;
             padding: 16px 0;
             font-size: 16px;
             font-weight: bold;
@@ -203,6 +202,12 @@
         }
         .control-btn:disabled {
             opacity:0.6;
+        }
+
+        /* 开始按钮独占一行 */
+        #startBtn {
+            grid-column: span 3;
+            font-size: 18px;
         }
 
         /* 结果弹窗 */
@@ -300,16 +305,20 @@
             <button class="number-btn" onclick="addNumber(1)">1</button>
             <button class="number-btn" onclick="addNumber(2)">2</button>
             <button class="number-btn" onclick="addNumber(3)">3</button>
+
             <button class="number-btn" onclick="addNumber(4)">4</button>
             <button class="number-btn" onclick="addNumber(5)">5</button>
             <button class="number-btn" onclick="addNumber(6)">6</button>
+
             <button class="number-btn" onclick="addNumber(7)">7</button>
             <button class="number-btn" onclick="addNumber(8)">8</button>
             <button class="number-btn" onclick="addNumber(9)">9</button>
-            <button class="control-btn" id="startBtn" onclick="startGame()">开始</button>
-            <button class="number-btn" onclick="addNumber(0)">0</button>
-            <button class="control-btn" id="clearBtn" onclick="clearAnswer()" disabled>清除</button>
-            <button class="control-btn" id="submitBtn" onclick="checkAnswer()" disabled>提交</button>
+			
+			<button class="control-btn" id="clearBtn" onclick="clearAnswer()" disabled>清除</button>  
+			<button class="number-btn" onclick="addNumber(0)">0</button>
+			<button class="control-btn" id="submitBtn" onclick="checkAnswer()" disabled>提交</button>
+			
+            <button class="control-btn" id="startBtn" onclick="startGame()">开始游戏</button>
         </div>
     </div>
 
@@ -321,7 +330,7 @@
             <div class="stat-item">正确：<span class="stat-value" id="correctCount">0</span> 题</div>
             <div class="stat-item">正确率：<span class="stat-value" id="accuracy">0</span>%</div>
             <div class="praise-text" id="praiseText"></div>
-            <button class="control-btn" onclick="restartGame()" style="grid-column:span3">再玩一次</button>
+            <button class="control-btn" onclick="restartGame()" style="grid-column:span3;width:100%;">再玩一次</button>
         </div>
     </div>
 
