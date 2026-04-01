@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>速算小达人 - 20以内加减法</title>
     <style>
         * {
@@ -14,25 +14,22 @@
         body {
             font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
             background: linear-gradient(135deg, #FFE4E1 0%, #B0E0E6 100%);
-            height: 100vh;
-            width: 100vw;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            padding: 10px;
-            overflow: hidden;
+            align-items: center;
+            padding: 20px;
         }
 
         .container {
             background: white;
-            border-radius: 20px;
-            padding: 20px 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
             width: 100%;
-            max-width: 100%;
-            height: calc(100vh - 20px);
             position: relative;
-            overflow-y: auto;
+            overflow: hidden;
         }
 
         .container::before {
@@ -44,7 +41,6 @@
             height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
             animation: shimmer 4s infinite;
-            z-index: 0;
         }
 
         @keyframes shimmer {
@@ -54,53 +50,63 @@
 
         .header {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 30px;
             position: relative;
             z-index: 1;
         }
 
         .header h1 {
-            font-size: 1.8em;
+            font-size: 2.5em;
             color: #FF6B6B;
-            margin-bottom: 5px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .header .subtitle {
             color: #888;
-            font-size: 0.9em;
+            font-size: 1.1em;
         }
 
         .game-section {
             position: relative;
             z-index: 1;
-            height: calc(100% - 70px);
-            display: flex;
-            flex-direction: column;
         }
 
         .timer {
             background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%);
             color: white;
-            font-size: 1.5em;
+            font-size: 2em;
             font-weight: bold;
-            padding: 10px 15px;
+            padding: 15px 30px;
             border-radius: 50px;
             text-align: center;
             margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.4);
+        }
+
+        /* 新增每题倒计时样式 */
+        .question-timer {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
         }
 
         .progress {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin-bottom: 15px;
+            gap: 10px;
+            margin-bottom: 30px;
         }
 
         .progress-dot {
-            width: 12px;
-            height: 12px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             background: #ddd;
             transition: all 0.3s ease;
@@ -121,41 +127,40 @@
 
         .equation-box {
             background: linear-gradient(145deg, #f5f7fa 0%, #e4e8ec 100%);
-            border-radius: 15px;
-            padding: 20px 15px;
+            border-radius: 20px;
+            padding: 40px;
             text-align: center;
-            margin-bottom: 15px;
-            border: 2px solid transparent;
+            margin-bottom: 30px;
+            border: 3px solid transparent;
             transition: all 0.3s ease;
-            flex-shrink: 0;
         }
 
         .equation-box:hover {
             border-color: #FF6B6B;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
 
         .equation {
-            font-size: 2.2em;
+            font-size: 4em;
             font-weight: bold;
             color: #4ECDC4;
-            margin: 10px 0;
-            min-height: 70px;
+            margin: 20px 0;
+            min-height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .answer-section {
-            margin: 15px 0;
+            margin: 30px 0;
         }
 
         .answer-input {
             width: 100%;
-            padding: 15px;
-            font-size: 1.8em;
-            border: 3px solid #ddd;
-            border-radius: 15px;
+            padding: 20px;
+            font-size: 2em;
+            border: 4px solid #ddd;
+            border-radius: 20px;
             outline: none;
             text-align: center;
             transition: all 0.3s ease;
@@ -164,15 +169,15 @@
 
         .answer-input:focus {
             border-color: #4ECDC4;
-            box-shadow: 0 0 15px rgba(78, 205, 196, 0.2);
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
         }
 
         .feedback {
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 15px;
             text-align: center;
-            font-size: 1em;
+            font-size: 1.2em;
             font-weight: bold;
             display: none;
         }
@@ -193,29 +198,28 @@
 
         .number-pad {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 15px 0;
-            flex-grow: 1;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin: 30px 0;
         }
 
         .number-btn {
-            padding: 15px 10px;
-            font-size: 1.3em;
+            padding: 20px;
+            font-size: 1.5em;
             border: none;
-            border-radius: 12px;
+            border-radius: 15px;
             background: linear-gradient(145deg, #f5f7fa 0%, #e4e8ec 100%);
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .number-btn:hover {
             background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
         }
 
         .number-btn:active {
@@ -223,89 +227,86 @@
         }
 
         .control-btn {
-            grid-column: span 3;
-            padding: 12px 10px;
-            font-size: 1.1em;
+            grid-column: span 5;
+            padding: 15px;
+            font-size: 1.2em;
             border: none;
-            border-radius: 12px;
+            border-radius: 15px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
-            margin-top: 5px;
         }
 
         .control-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
 
         .result-screen {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            padding: 20px;
         }
 
         .result-content {
             background: white;
-            border-radius: 20px;
-            padding: 30px 20px;
+            border-radius: 30px;
+            padding: 60px;
             text-align: center;
-            width: 100%;
-            max-width: 100%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .result-content h2 {
-            font-size: 2em;
+            font-size: 2.5em;
             color: #667eea;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .result-stats {
-            margin: 20px 0;
+            margin: 30px 0;
         }
 
         .stat-item {
-            font-size: 1.2em;
-            margin: 10px 0;
+            font-size: 1.5em;
+            margin: 15px 0;
             color: #555;
         }
 
         .stat-value {
             font-weight: bold;
             color: #FF6B6B;
-            font-size: 1.1em;
+            font-size: 1.2em;
         }
 
         .praise-text {
-            font-size: 1.1em;
+            font-size: 1.3em;
             color: #666;
-            margin: 20px 0;
-            line-height: 1.5;
+            margin: 30px 0;
+            line-height: 1.6;
         }
 
         .stars {
             position: absolute;
-            font-size: 1.5em;
+            font-size: 2em;
             animation: twinkle 1.5s infinite;
-            z-index: 0;
         }
 
-        .star-1 { top: 5%; left: 5%; }
-        .star-2 { top: 15%; right: 10%; }
-        .star-3 { bottom: 10%; left: 15%; }
-        .star-4 { bottom: 20%; right: 5%; }
+        .star-1 { top: 10%; left: 10%; }
+        .star-2 { top: 20%; right: 15%; }
+        .star-3 { bottom: 15%; left: 20%; }
+        .star-4 { bottom: 25%; right: 10%; }
 
         @keyframes twinkle {
             0%, 100% { opacity: 1; transform: scale(1); }
@@ -323,8 +324,8 @@
 
         .firework {
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             background: white;
             border-radius: 50%;
             animation: firework 1s ease-out forwards;
@@ -336,8 +337,43 @@
                 opacity: 1;
             }
             100% {
-                transform: scale(4);
+                transform: scale(5);
                 opacity: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .equation {
+                font-size: 2.5em;
+            }
+            
+            .answer-input {
+                font-size: 1.5em;
+            }
+            
+            .number-pad {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .control-btn {
+                grid-column: span 3;
+            }
+            
+            .result-content {
+                padding: 40px;
+            }
+            
+            .question-timer {
+                font-size: 1.2em;
+                padding: 8px 15px;
             }
         }
     </style>
@@ -356,6 +392,8 @@
 
         <div class="game-section">
             <div class="timer" id="timer">00:00.00</div>
+            <!-- 新增每题倒计时显示 -->
+            <div class="question-timer" id="questionTimer">答题时间：5秒</div>
             
             <div class="progress" id="progress">
                 <div class="progress-dot"></div>
@@ -411,225 +449,230 @@
         </div>
     </div>
 
-    <script>
-        // 游戏变量
-        let gameStarted = false;
-        let currentEquation = {};
-        let correctCount = 0;
-        let totalCount = 0;
-        let startTime = 0;
-        let timerInterval;
-        let autoNextTimer;
+<script>
+    // 游戏变量
+    let gameStarted = false;
+    let currentEquation = {};
+    let correctCount = 0;
+    let totalCount = 0;
+    let startTime = 0;
+    let timerInterval;
+    let autoNextTimer;
 
-        // DOM元素
-        const equation = document.getElementById('equation');
-        const answerInput = document.getElementById('answerInput');
-        const feedback = document.getElementById('feedback');
-        const startBtn = document.getElementById('startBtn');
-        const clearBtn = document.getElementById('clearBtn');
-        const submitBtn = document.getElementById('submitBtn');
-        const timer = document.getElementById('timer');
-        const progress = document.getElementById('progress');
-        const resultScreen = document.getElementById('resultScreen');
-        const finalTime = document.getElementById('finalTime');
-        const correctCountEl = document.getElementById('correctCount');
-        const accuracyEl = document.getElementById('accuracy');
-        const praiseText = document.getElementById('praiseText');
+    // 每题倒计时
+    let questionTimerInterval;
+    let questionRemainingTime = 5; // 每题5秒
 
-        // 生成随机加减法算式
-        function generateEquation() {
-            const isAddition = Math.random() > 0.5;
-            let a, b, answer;
-            
-            if (isAddition) {
-                a = Math.floor(Math.random() * 11) + 1;
-                b = Math.floor(Math.random() * (20 - a + 1)) + 1;
-                answer = a + b;
-                equation.textContent = `${a} + ${b} = ?`;
+    // DOM元素
+    const equation = document.getElementById('equation');
+    const answerInput = document.getElementById('answerInput');
+    const feedback = document.getElementById('feedback');
+    const startBtn = document.getElementById('startBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const timer = document.getElementById('timer');
+    const progress = document.getElementById('progress');
+    const resultScreen = document.getElementById('resultScreen');
+    const finalTime = document.getElementById('finalTime');
+    const correctCountEl = document.getElementById('correctCount');
+    const accuracyEl = document.getElementById('accuracy');
+    const praiseText = document.getElementById('praiseText');
+    const questionTimer = document.getElementById('questionTimer');
+
+    // 生成算式
+    function generateEquation() {
+        const isAddition = Math.random() > 0.5;
+        let a, b, answer;
+        
+        if (isAddition) {
+            a = Math.floor(Math.random() * 11) + 1;
+            b = Math.floor(Math.random() * (20 - a + 1)) + 1;
+            answer = a + b;
+            equation.textContent = `${a} + ${b} = ?`;
+        } else {
+            a = Math.floor(Math.random() * 20) + 1;
+            b = Math.floor(Math.random() * a) + 1;
+            answer = a - b;
+            equation.textContent = `${a} - ${b} = ?`;
+        }
+        return { answer };
+    }
+
+    // 开始游戏
+    function startGame() {
+        gameStarted = true;
+        correctCount = 0;
+        totalCount = 0;
+        startTime = Date.now();
+        
+        startBtn.disabled = true;
+        answerInput.disabled = false;
+        clearBtn.disabled = false;
+        submitBtn.disabled = false;
+        
+        progress.querySelectorAll('.progress-dot').forEach(dot => {
+            dot.className = 'progress-dot';
+        });
+        
+        clearInterval(timerInterval);
+        timerInterval = setInterval(updateTimer, 10);
+        
+        generateNextEquation();
+    }
+
+    // 下一题
+    function generateNextEquation() {
+        if (totalCount >= 10) {
+            endGame();
+            return;
+        }
+
+        // 重置倒计时
+        clearInterval(questionTimerInterval);
+        questionRemainingTime = 5;
+        updateQuestionTimer();
+
+        currentEquation = generateEquation();
+        answerInput.value = '';
+        feedback.textContent = '';
+        feedback.className = 'feedback';
+
+        // 进度
+        const dots = progress.querySelectorAll('.progress-dot');
+        dots.forEach((dot, index) => {
+            if (index < totalCount) {
+                dot.className = 'progress-dot ' + (index < correctCount ? 'correct' : 'incorrect');
+            } else if (index === totalCount) {
+                dot.className = 'progress-dot active';
             } else {
-                a = Math.floor(Math.random() * 20) + 1;
-                b = Math.floor(Math.random() * a) + 1;
-                answer = a - b;
-                equation.textContent = `${a} - ${b} = ?`;
-            }
-            
-            return { answer };
-        }
-
-        // 开始游戏
-        function startGame() {
-            gameStarted = true;
-            correctCount = 0;
-            totalCount = 0;
-            startTime = Date.now();
-            
-            startBtn.disabled = true;
-            answerInput.disabled = false;
-            clearBtn.disabled = false;
-            submitBtn.disabled = false;
-            
-            // 重置进度点
-            progress.querySelectorAll('.progress-dot').forEach(dot => {
                 dot.className = 'progress-dot';
-            });
-            
-            // 开始计时器
-            timerInterval = setInterval(updateTimer, 10);
-            
-            // 生成第一题
-            generateNextEquation();
-        }
-
-        // 生成下一题
-        function generateNextEquation() {
-            if (totalCount >= 10) {
-                endGame();
-                return;
             }
-            
-            currentEquation = generateEquation();
-            answerInput.value = '';
-            feedback.textContent = '';
-            feedback.className = 'feedback';
-            
-            // 更新进度点
-            const dots = progress.querySelectorAll('.progress-dot');
-            dots.forEach((dot, index) => {
-                if (index < totalCount) {
-                    dot.className = 'progress-dot ' + (index < correctCount ? 'correct' : 'incorrect');
-                } else if (index === totalCount) {
-                    dot.className = 'progress-dot active';
-                } else {
-                    dot.className = 'progress-dot';
-                }
-            });
-            
-            // 3秒自动跳转
-            clearTimeout(autoNextTimer);
-            autoNextTimer = setTimeout(() => {
-                if (gameStarted) {
-                    totalCount++;
-                    generateNextEquation();
-                }
-            }, 3000);
-        }
+        });
 
-        // 更新计时器
-        function updateTimer() {
-            const elapsed = Date.now() - startTime;
-            const minutes = Math.floor(elapsed / 60000).toString().padStart(2, '0');
-            const seconds = Math.floor((elapsed % 60000) / 1000).toString().padStart(2, '0');
-            const milliseconds = Math.floor((elapsed % 1000) / 10).toString().padStart(2, '0');
-            timer.textContent = `${minutes}:${seconds}.${milliseconds}`;
-        }
-
-        // 检查答案
-        function checkAnswer() {
-            const userAnswer = parseInt(answerInput.value);
-            
-            if (isNaN(userAnswer)) {
-                feedback.textContent = '请输入答案';
-                feedback.className = 'feedback incorrect';
-                return;
+        // 倒计时自动提交
+        questionTimerInterval = setInterval(() => {
+            questionRemainingTime -= 0.1;
+            updateQuestionTimer();
+            if (questionRemainingTime <= 0) {
+                clearInterval(questionTimerInterval);
+                checkAnswer(); // 🔥 倒计时到，直接调用提交函数
             }
-            
-            clearTimeout(autoNextTimer);
-            
+        }, 100);
+    }
+
+    // 更新单题倒计时
+    function updateQuestionTimer() {
+        questionTimer.textContent = `答题时间：${questionRemainingTime.toFixed(1)}秒`;
+        if (questionRemainingTime <= 1) {
+            questionTimer.style.color = '#ff0000';
+        } else {
+            questionTimer.style.color = '#fff';
+        }
+    }
+
+    // 更新总时间
+    function updateTimer() {
+        const elapsed = Date.now() - startTime;
+        const minutes = Math.floor(elapsed / 60000).toString().padStart(2, '0');
+        const seconds = Math.floor((elapsed % 60000) / 1000).toString().padStart(2, '0');
+        const ms = Math.floor((elapsed % 1000) / 10).toString().padStart(2, '0');
+        timer.textContent = `${minutes}:${seconds}.${ms}`;
+    }
+
+    // 提交答案（手动/自动都走这里）
+    function checkAnswer() {
+        clearInterval(questionTimerInterval); // 停掉倒计时
+        clearTimeout(autoNextTimer);
+
+        const userAnswer = parseInt(answerInput.value);
+        const isEmpty = isNaN(userAnswer);
+
+        if (isEmpty) {
+            feedback.textContent = `⏰ 时间到！正确答案：${currentEquation.answer}`;
+            feedback.className = 'feedback incorrect';
+        } else {
             if (userAnswer === currentEquation.answer) {
                 feedback.textContent = '✓ 正确！';
                 feedback.className = 'feedback correct';
                 correctCount++;
             } else {
-                feedback.textContent = `✗ 错误！正确答案是 ${currentEquation.answer}`;
+                feedback.textContent = `✗ 错误！答案：${currentEquation.answer}`;
                 feedback.className = 'feedback incorrect';
             }
-            
-            totalCount++;
-            
-            // 1秒后显示下一题
-            setTimeout(generateNextEquation, 1000);
         }
 
-        // 结束游戏
-        function endGame() {
-            gameStarted = false;
-            clearInterval(timerInterval);
-            clearTimeout(autoNextTimer);
-            
-            startBtn.disabled = false;
-            answerInput.disabled = true;
-            clearBtn.disabled = true;
-            submitBtn.disabled = true;
-            
-            // 显示结果
-            finalTime.textContent = timer.textContent;
-            correctCountEl.textContent = correctCount;
-            const accuracy = Math.round((correctCount / totalCount) * 100);
-            accuracyEl.textContent = accuracy;
-            
-            // 生成表扬语
-            let praise = '';
-            if (accuracy === 100) {
-                praise = '太棒了！你是速算小天才！🎉\n全部答对，真厉害！';
-            } else if (accuracy >= 80) {
-                praise = '非常棒！你做得很好！🌟\n继续保持这样的好成绩！';
-            } else if (accuracy >= 60) {
-                praise = '不错哦！继续努力！👍\n多加练习会更厉害的！';
-            } else {
-                praise = '没关系！这次是第一次尝试！🌈\n下次一定会做得更好的！';
-            }
-            
-            praiseText.textContent = praise;
-            createFireworks();
-            resultScreen.style.display = 'flex';
-        }
+        totalCount++;
+        setTimeout(generateNextEquation, 1000);
+    }
 
-        // 重新开始游戏
-        function restartGame() {
-            resultScreen.style.display = 'none';
-            startGame();
-        }
+    // 结束
+    function endGame() {
+        gameStarted = false;
+        clearInterval(timerInterval);
+        clearInterval(questionTimerInterval);
+        clearTimeout(autoNextTimer);
 
-        // 添加数字
-        function addNumber(num) {
-            if (!gameStarted) return;
-            
-            const currentValue = answerInput.value;
-            if (currentValue.length < 2) {
-                answerInput.value = currentValue + num;
-            }
-        }
+        startBtn.disabled = false;
+        answerInput.disabled = true;
+        clearBtn.disabled = true;
+        submitBtn.disabled = true;
 
-        // 清除答案
-        function clearAnswer() {
-            answerInput.value = '';
-        }
+        finalTime.textContent = timer.textContent;
+        correctCountEl.textContent = correctCount;
+        const accuracy = Math.round((correctCount / totalCount) * 100);
+        accuracyEl.textContent = accuracy;
 
-        // 生成烟花效果
-        function createFireworks() {
-            const fireworks = document.getElementById('fireworks');
-            fireworks.innerHTML = '';
-            
-            for (let i = 0; i < 30; i++) { // 减少烟花数量适配手机
-                const firework = document.createElement('div');
-                firework.className = 'firework';
-                firework.style.left = Math.random() * 100 + '%';
-                firework.style.top = Math.random() * 100 + '%';
-                firework.style.animationDelay = Math.random() * 2 + 's';
-                
-                const colors = ['#FF6B6B', '#4ECDC4', '#667eea', '#FFD166', '#06D6A0'];
-                firework.style.background = colors[Math.floor(Math.random() * colors.length)];
-                
-                fireworks.appendChild(firework);
-            }
+        let praise = '';
+        if (accuracy === 100) {
+            praise = '太棒了！你是速算小天才！🎉';
+        } else if (accuracy >= 80) {
+            praise = '非常棒！你做得很好！🌟';
+        } else if (accuracy >= 60) {
+            praise = '不错哦！继续努力！👍';
+        } else {
+            praise = '没关系！多加练习一定更棒！🌈';
         }
+        praiseText.textContent = praise;
+        createFireworks();
+        resultScreen.style.display = 'flex';
+    }
 
-        // 回车键提交答案
-        answerInput.addEventListener('keyup', function(e) {
-            if (e.key === 'Enter' && gameStarted) {
-                checkAnswer();
-            }
-        });
-    </script>
+    function restartGame() {
+        resultScreen.style.display = 'none';
+        startGame();
+    }
+
+    function addNumber(num) {
+        if (!gameStarted) return;
+        if (answerInput.value.length < 2) {
+            answerInput.value += num;
+        }
+    }
+
+    function clearAnswer() {
+        answerInput.value = '';
+    }
+
+    // 烟花
+    function createFireworks() {
+        const f = document.getElementById('fireworks');
+        f.innerHTML = '';
+        const colors = ['#FF6B6B', '#4ECDC4', '#667eea', '#FFD166', '#06D6A0'];
+        for (let i = 0; i < 50; i++) {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.left = Math.random() * 100 + '%';
+            firework.style.top = Math.random() * 100 + '%';
+            firework.style.animationDelay = Math.random() * 2 + 's';
+            firework.style.background = colors[Math.floor(Math.random() * colors.length)];
+            f.appendChild(firework);
+        }
+    }
+
+    // 回车提交
+    answerInput.addEventListener('keyup', e => {
+        if (e.key === 'Enter' && gameStarted) checkAnswer();
+    });
+</script>
 </body>
 </html>
